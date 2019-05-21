@@ -3,7 +3,7 @@ step:
 
 3. Service API (GET and POST both supported, GET for your test):
 	(1) policy query: 
-	http://localhost:8082/getPolicy/?policy={policyNum}
+	http://localhost:8082/getPolicy/?policy={num}
 	eg: http://localhost:8082/getPolicy/?policy=15465465
 
 	(2) QA: 
