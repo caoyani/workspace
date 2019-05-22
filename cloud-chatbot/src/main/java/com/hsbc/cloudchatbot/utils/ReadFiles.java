@@ -8,18 +8,34 @@ import org.wltea.analyzer.lucene.IKAnalyzer;
  */
 public class ReadFiles {
 
-    public static String fsName;
+    public static String fsName = System.getProperty("user.dir") + "\\database";
     public static String[] nonimportantWords;
 
     static {
         Properties properties = new Properties();
+        String configFile = System.getProperty("user.dir") + "\\config.properties";
         try {
-            properties.load(new InputStreamReader(Thread.currentThread().getContextClassLoader().getResourceAsStream("config.properties"), "gbk"));
+            properties.load(new InputStreamReader(new FileInputStream(configFile), "gbk"));
         } catch (IOException e) {
             System.out.println("Error loading the file config.properties"+ e);
         }
-        fsName = properties.getProperty("file.system.path");
-        nonimportantWords = properties.getProperty("nonimportant.words").split(",");
+
+        try {
+//            properties.load(new InputStreamReader(Thread.currentThread().getContextClassLoader().getResourceAsStream("config.properties"), "gbk"));
+            properties.load(new InputStreamReader(new FileInputStream(configFile), "gbk"));
+        } catch (IOException e) {
+            System.out.println("Error loading the file config.properties"+ e);
+        }
+        String fileName = properties.getProperty("file.system.path");
+        if (fileName != null && !Objects.equals(fileName, "")) {
+            fsName = fileName;
+        }
+        String nonWords =  properties.getProperty("nonimportant.words");
+        if (nonWords != null && !nonWords.equals("")) {
+            nonimportantWords = nonWords.split(",");
+        } else {
+            nonimportantWords = new String[0];
+        }
     }
 
     private static ArrayList<String> FileList = new ArrayList<String>(); // the list of file
@@ -264,6 +280,30 @@ public class ReadFiles {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
+
+//        System.out.println(System.getProperty("user.dir"));//user.dir指定了当前的路径
+//        File directory = new File("");//设定为当前文件夹
+//        try{
+//            System.out.println(directory.getCanonicalPath());//获取标准的路径
+//            System.out.println(directory.getAbsolutePath());//获取绝对路径
+//            System.out.println(directory.getPath());
+//        } catch(Exception e) {
+//            e.printStackTrace();
+//        }
+
+//        Properties properties = new Properties();
+//        System.out.println(System.getProperty("user.dir"));
+//        String configFile = System.getProperty("user.dir") + "\\config.properties";
+//        try {
+//            properties.load(new InputStreamReader(new FileInputStream(configFile), "gbk"));
+//        } catch (IOException e) {
+//            System.out.println("Error loading the file config.properties"+ e);
+//        }
+//        System.out.println(properties);
+//        System.out.println(properties.getProperty("file.system.path"));
+//        System.out.println(properties.getProperty("nonimportant.words").split(","));
+//
+//
 //    }
 
 }
