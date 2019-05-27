@@ -8,17 +8,14 @@ import org.wltea.analyzer.lucene.IKAnalyzer;
  */
 public class ReadFiles {
 
-    public static String fsName = System.getProperty("user.dir") + "\\database";
+//    public static String fsName = System.getProperty("user.dir") + "\\database"; //linux不兼容
+    public static String fsName = System.getProperty("user.dir") + "/database";
     public static String[] nonimportantWords;
 
     static {
         Properties properties = new Properties();
-        String configFile = System.getProperty("user.dir") + "\\config.properties";
-        try {
-            properties.load(new InputStreamReader(new FileInputStream(configFile), "gbk"));
-        } catch (IOException e) {
-            System.out.println("Error loading the file config.properties"+ e);
-        }
+//        String configFile = System.getProperty("user.dir") + "\\config.properties";
+        String configFile = System.getProperty("user.dir") + "/config.properties";
 
         try {
 //            properties.load(new InputStreamReader(Thread.currentThread().getContextClassLoader().getResourceAsStream("config.properties"), "gbk"));
@@ -52,13 +49,13 @@ public class ReadFiles {
                 String[] flist = file.list();
                 assert flist != null;
                 for (String aFlist : flist) {
-                    File newfile = new File(filepath + "\\" + aFlist);
+                    File newfile = new File(filepath + "/" + aFlist);
                     if (!newfile.isDirectory()) {
                         FileList.add(newfile.getAbsolutePath());
                     } else {
                         if (newfile.isDirectory()) //if file is a directory, call ReadDirs
                         {
-                            readDirs(filepath + "\\" + aFlist);
+                            readDirs(filepath + "/" + aFlist);
                         }
                     }
                 }
@@ -293,7 +290,7 @@ public class ReadFiles {
 
 //        Properties properties = new Properties();
 //        System.out.println(System.getProperty("user.dir"));
-//        String configFile = System.getProperty("user.dir") + "\\config.properties";
+//        String configFile = System.getProperty("user.dir") + "/config.properties";
 //        try {
 //            properties.load(new InputStreamReader(new FileInputStream(configFile), "gbk"));
 //        } catch (IOException e) {
